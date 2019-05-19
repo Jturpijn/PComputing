@@ -12,7 +12,6 @@ public class TL_mergethreadHigh implements Runnable {
     }
 
     public void run() {
-        System.out.println("Thread start");
         TL_MergeSort.outputHigh = new int[anArray.length];
         TL_MergeSort.outputHigh = anArray;
         MergeSort.mergesort(TL_MergeSort.outputHigh);
