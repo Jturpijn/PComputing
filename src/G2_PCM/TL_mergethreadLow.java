@@ -12,8 +12,8 @@ public class TL_mergethreadLow implements Runnable {
     }
 
     public void run() {
-        TL_MergeSort.outputLow = new int[anArray.length];
-        TL_MergeSort.outputLow = anArray;
-        MergeSort.mergesort(TL_MergeSort.outputLow);
+        TL_MergeSort.outputLow1 = new int[anArray.length];
+        TL_MergeSort.outputLow1 = anArray;
+        MergeSort.mergesort(TL_MergeSort.outputLow1);
     }
 }

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    private static final int SIZE = 750000;
-    private static final int MAX = 100;
+    private static final int SIZE = 20;
+    private static final int MAX = 10;
     static int[] array = random(SIZE, MAX);
     
     // threads and locks variables
@@ -20,14 +20,8 @@ public class Main {
     public static void main(String[] args) throws InterruptedException{
         // sequential implementation
         benchSequential();
-        benchSequential();
-        benchSequential();
-        benchSequential();
 
         // threads and locks implementation
-        benchTLMerge();
-        benchTLMerge();
-        benchTLMerge();
         benchTLMerge();
     }
 
