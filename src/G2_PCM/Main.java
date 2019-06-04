@@ -6,20 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    private static final int SIZE = 20;
-    private static final int MAX = 10;
+    private static final int SIZE = 750000;
+    private static final int MAX = 100;
+    private static final int CORES = 2;
     static int[] array = random(SIZE, MAX);
-    
-    // threads and locks variables
-    final static int originalMiddle = array[SIZE/2];
-    static List<Integer> low = new ArrayList<Integer>();
-    static List<Integer> high = new ArrayList<Integer>();
-    static int[] outputLow;
-    static int[] outputHigh;
 
     public static void main(String[] args) throws InterruptedException{
         // sequential implementation
-        benchSequential();
+        //benchSequential();
 
         // threads and locks implementation
         benchTLMerge();
@@ -46,7 +40,7 @@ public class Main {
         // parallel implementation 4 core
         long TL2start = System.currentTimeMillis();
 
-        TL_MergeSort.main(array);
+        TL_MergeSort.main(CORES, MAX, array);
 
         long TL2end = System.currentTimeMillis();
         System.out.println("Type: Threads & Locks MergeSort");
