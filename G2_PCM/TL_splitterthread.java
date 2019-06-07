@@ -2,6 +2,9 @@ package G2_PCM;
 
 import java.util.List;
 
+import static G2_PCM.Utils.print;
+
+
 public class TL_splitterthread implements Runnable {
     private List<Integer> list1;
     private List<Integer> list2;
@@ -26,6 +29,6 @@ public class TL_splitterthread implements Runnable {
         for(int l2 = 0; l2 <list2.size(); l2++) {
             remoteArray2[l2] = list2.get(l2);
         }
-        Utils.print(remoteArray1);
+        print(remoteArray1);
     }
 }

@@ -2,8 +2,6 @@ package G2_PCM;
 
 import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     private static final int SIZE = 750000;
