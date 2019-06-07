@@ -4,9 +4,9 @@ import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.*;
 
 public class Main {
-    private static final int SIZE = 750000;
-    private static final int MAX = 100;
-    private static final int CORES = 2;
+    private static final int SIZE = 16;
+    private static final int MAX = 16;
+    private static final int CORES = 8;
     static int[] array = random(SIZE, MAX);
 
     public static void main(String[] args) throws InterruptedException{
@@ -17,7 +17,7 @@ public class Main {
         benchTLMerge();
     }
 
-    public static void benchSequential() {
+    private static void benchSequential() {
         array=random(SIZE, MAX);
         System.out.println(" "); // improve output readability
 
@@ -31,7 +31,7 @@ public class Main {
         System.out.println("\t Total time in milliseconds: " + (end - start));
     }
 
-    public static void benchTLMerge() throws InterruptedException{
+    private static void benchTLMerge() throws InterruptedException{
         array=random(SIZE, MAX);
         System.out.println(" "); // improve output readability
 
