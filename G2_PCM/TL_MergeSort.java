@@ -3,14 +3,9 @@ package G2_PCM;
 import java.util.LinkedList;
 import java.util.List;
 
-import static G2_PCM.Utils.merge;
-import static G2_PCM.Utils.print;
-import static java.lang.Thread.sleep;
-
 public class TL_MergeSort {
 
-    static List<List<Integer>> splitLists = new LinkedList<>();
-    static List<List<Integer>> mergeLists = new LinkedList<>();
+    static volatile List<List<Integer>> splitLists = new LinkedList<>();
     static int[] array;
     static int MAX;
     static int CORES;
@@ -28,25 +23,17 @@ public class TL_MergeSort {
         }
 
         for (int j=0; j<CORES; j++) {
-            new TL_splitThread().run();
+            new TL_splitThread(j).run();
         }
 
         for (int j=0; j<CORES; j++) {
-            new TL_mergeThread().run();
+            new TL_mergeThread(j).run();
         }
 
-        System.out.println("printing :");
-        for (List<Integer> list : splitLists) {
-            System.out.print("list number : " + splitLists.indexOf(list) + "  ");
-            print(list.stream().mapToInt(Integer::intValue).toArray());
-        }
-        
-        // Iterator it = subarrays.entrySet().iterator();
-        // while (it.hasNext()) {
-        //     Map.Entry pair = (Map.Entry)it.next();
-        //     System.out.println(pair.getKey() + " = " + pair.getValue());
-        //     it.remove(); // avoids a ConcurrentModificationException
-        // }
-        
+        System.out.println("Finished sorting ");
+//        for (List<Integer> list : splitLists) {
+//            System.out.print("list number : " + splitLists.indexOf(list) + "  ");
+//            print(list.stream().mapToInt(Integer::intValue).toArray());
+//        }
     }
 }
