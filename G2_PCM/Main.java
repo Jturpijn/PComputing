@@ -1,5 +1,6 @@
 package G2_PCM;
 
+import static G2_PCM.TL_MergeSort.main;
 import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.*;
 
@@ -7,7 +8,7 @@ public class Main {
     private static final int SIZE = 1000000;
     private static final int MAX = 100;
     private static final int CORES = 8;
-    static int[] array = random(SIZE, MAX);
+    private static int[] array = random(SIZE, MAX);
 
     public static void main(String[] args) throws InterruptedException{
         // sequential implementation

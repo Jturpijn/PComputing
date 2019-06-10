@@ -1,5 +1,6 @@
 package G2_PCM;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,16 +9,17 @@ import static java.lang.Thread.sleep;
 
 public class TL_MergeSort {
 
-    static List<List<Integer>> splitLists = new LinkedList<>();
+    static List<List<Integer>> splitLists = new ArrayList<>();
     static int[] array;
     static int MAX;
     static int CORES;
-    static boolean first_layer = false;
-    static boolean second_layer = false;
-    static boolean third_layer = false;
-    static boolean finished_merging = false;
+    static int finished_splitting = 0;
+    static int finished_merging = 0;
 
     public static void main(int provCores, int highestValue, int[] anArray) throws InterruptedException{
+        List<Integer> tempLow = new ArrayList<>();
+        List<Integer> tempHigh = new ArrayList<>();
+
         // unsorted array 
         MAX = highestValue;
         CORES = provCores; // provided cores
@@ -29,32 +31,41 @@ public class TL_MergeSort {
             splitLists.add(todo);
         }
 
-        new TL_splitThread(1);
+        // split into two
 
-        while(!first_layer) { Thread.sleep(1); }
-
-            for (int j=0; j<2; j++) {
-                new TL_splitThread(j);
+        for(int i=0;i<array.length;i++) {
+            if (array[i] < (MAX/2)) {
+                tempLow.add(array[i]);
+            } else {
+                tempHigh.add(array[i]);
             }
+        }
+        splitLists.set(0, tempLow);
+        splitLists.set(4, tempHigh);
 
-        while(!second_layer) { Thread.sleep(5); }
+            new TL_splitThread(0, 2, (MAX/4));
+            new TL_splitThread(4, 6, (MAX-(MAX/4)));
 
-            for (int j=0; j<4; j++) {
-                new TL_splitThread(j);
-            }
+        while(finished_splitting != 2) { Thread.sleep(5); }
 
-        while(!third_layer) { Thread.sleep(5); }
+            new TL_splitThread(0, 1, (MAX/8));
+            new TL_splitThread(2, 3, ((MAX/2)-(MAX/8)));
+            new TL_splitThread(4, 5, ((MAX/2)+(MAX/8)));
+            new TL_splitThread(6, 7, ((MAX)-(MAX/8)));
 
-            for (int k=0; k<CORES; k++) {
-                if(finished_merging) {
+        while(finished_splitting != 6) { Thread.sleep(5); }
+            for (int k=0; k<splitLists.size(); k++) {
+                if(finished_merging == (splitLists.size())) {
                     break;
                 } else {
                     new TL_mergeThread(k);
-                    Thread.sleep(5);
+                    Thread.sleep(2);
                 }
             }
 
-        System.out.println("Finished sorting ");
+        while(finished_merging != splitLists.size()) { Thread.sleep(2); }
+
+//        System.out.println("Finished sorting ");
 //        for (List<Integer> list : splitLists) {
 //            System.out.print("list number : " + splitLists.indexOf(list) + "  ");
 //            print(list.stream().mapToInt(Integer::intValue).toArray());

@@ -1,7 +1,7 @@
 package G2_PCM;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +11,7 @@ import static java.lang.Thread.sleep;
 
 public class TL_mergeThread implements Runnable {
     int[] temparr;
-    List<Integer> templ = new LinkedList<>();
+    List<Integer> templ = new ArrayList<>();
     int threadcount;
 
     public TL_mergeThread(int count) {
@@ -33,21 +33,19 @@ public class TL_mergeThread implements Runnable {
 //                }
 //            }
             try {
-                for(int i=0; i<splitLists.size();i++) {
-                    List<Integer> list = splitLists.get(i);
+                    List<Integer> list = splitLists.get(threadcount);
 
                     if (list.isEmpty()) {
-                        System.out.println("this is empty");
+                        System.out.println("I'm thread : " + threadcount + " and I found an empty");
                     } else {
                         temparr = list.stream().mapToInt(Integer::intValue).toArray();
                         mergesort(temparr);
                         templ = Arrays.stream(temparr).boxed().collect(Collectors.toList());
 
                         splitLists.set(splitLists.indexOf(list), templ);
+                        finished_merging++;
                     }
-                }
             } catch(IndexOutOfBoundsException ex) {
-                finished_merging = true;
                 System.out.println(ex.getMessage());
             }
     }
