@@ -9,24 +9,22 @@ import static java.lang.Thread.sleep;
 
 public class TL_MergeSort {
 
-    static List<List<Integer>> splitLists = new ArrayList<>();
+    static volatile List<List<Integer>> splitLists = new ArrayList<>();
     static int[] array;
     static int MAX;
-    static int CORES;
     static int finished_splitting = 0;
     static int finished_merging = 0;
 
-    public static void main(int provCores, int highestValue, int[] anArray) throws InterruptedException{
+    public static void main(int highestValue, int[] anArray) throws InterruptedException{
         List<Integer> tempLow = new ArrayList<>();
         List<Integer> tempHigh = new ArrayList<>();
 
         // unsorted array 
         MAX = highestValue;
-        CORES = provCores; // provided cores
         array = new int[anArray.length]; array = anArray;
 
         // create subarrays
-        for(int subs=0;subs<CORES;subs++) {
+        for(int subs=0;subs<8;subs++) {
             List<Integer> todo = new LinkedList<>();
             splitLists.add(todo);
         }
@@ -54,6 +52,7 @@ public class TL_MergeSort {
             new TL_splitThread(6, 7, ((MAX)-(MAX/8)));
 
         while(finished_splitting != 6) { Thread.sleep(5); }
+
             for (int k=0; k<splitLists.size(); k++) {
                 if(finished_merging == (splitLists.size())) {
                     break;
