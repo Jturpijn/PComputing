@@ -64,7 +64,6 @@ public class FJ_MergeThread extends Thread {
 
         } else {
             if(list.size()>0){
-                System.out.println("mergesorted a bitch " + list.size());
                 merge(left, right);
             }
         }
