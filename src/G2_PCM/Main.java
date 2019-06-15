@@ -1,32 +1,35 @@
 package G2_PCM;
 
+
 import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    private static final int SIZE = 750000;
-    private static final int MAX = 100;
-    private static final int CORES = 2;
+     static final int SIZE = 75;
+     static final int MAX = 75;
+     static final int CORES = 2;
     static int[] array = random(SIZE, MAX);
 
     public static void main(String[] args) throws InterruptedException{
         // sequential implementation
-        //benchSequential();
+        benchSequential();
 
         // threads and locks implementation
-        benchTLMerge();
+       // benchTLMerge();
     }
 
     public static void benchSequential() {
         array=random(SIZE, MAX);
         System.out.println(" "); // improve output readability
-
         long start = System.currentTimeMillis();
 
         mergesort(array);
 
+        for (int value : array) {
+            System.out.println(value);
+        }
         long end = System.currentTimeMillis();
         System.out.println("Type: Sequantial MergeSort");
         System.out.println("\t Amount of elements: " + SIZE);
