@@ -27,9 +27,6 @@ public class Main {
 
         mergesort(array);
 
-        for (int value : array) {
-            System.out.println(value);
-        }
         long end = System.currentTimeMillis();
         System.out.println("Type: Sequantial MergeSort");
         System.out.println("\t Amount of elements: " + SIZE);

@@ -5,6 +5,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 import java.util.Arrays;
 
+import static G2_PCM.MergeSort.mergesort;
+
 public class SortStringFromQueue {
     // either connect to the remote ActiveMQ running on the PI, or on the localhost
     private static String url = "failover:(tcp://localhost:61616,localhost:8161)";
@@ -32,7 +34,7 @@ public class SortStringFromQueue {
         }
         Destination destination_toQueue = session.createQueue(subjectTo);
         MessageProducer producer = session.createProducer(destination_toQueue);
-        Arrays.sort(integers);
+        mergesort(integers);
         String stringForConsumer = Arrays.toString(integers);
         TextMessage messageTo = session.createTextMessage(stringForConsumer);
         producer.send(messageTo);
