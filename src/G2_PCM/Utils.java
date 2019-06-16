@@ -1,8 +1,9 @@
 package G2_PCM; 
 
+import java.util.List;
 import java.util.Random;
 
-public interface Utils {
+public class Utils {
     // create a random number with a maximum of n.
     static int[] random(final int n, final int m) {
         final int[] a = new int[n];
@@ -12,6 +13,39 @@ public interface Utils {
         }
 
         return a;
+    }
+
+    // Split array into buckets
+    static void splitIntoCores(int max, int cores, int[] array) {
+        List<List<Integer>> allLists = TL_MergeSort.allLists;
+
+        if(cores == 2) {
+            for(int i =0; i < array.length; i++ ) {
+                if(array[i] < max/2) {
+                    allLists.get(0).add(array[i]);
+                } else { allLists.get(1).add(array[i]); }
+            }
+        } else if (cores == 3 ) {
+            for(int i =0; i < array.length; i++ ) {
+                if(array[i] < max/2) {
+                    if(array[i] < max/4) {
+                        allLists.get(0).add(array[i]);
+                    } else { allLists.get(1).add(array[i]); }
+                } else { allLists.get(2).add(array[i]); }
+            }
+        } else if (cores == 4) {
+            for(int i =0; i < array.length; i++ ) {
+                if(array[i] < max/2) {
+                    if(array[i] < max/4) {
+                        allLists.get(0).add(array[i]);
+                    } else { allLists.get(1).add(array[i]); }
+                } else {
+                    if(array[i] < (max - (max/4))) {
+                        allLists.get(2).add(array[i]);
+                    } else { allLists.get(3).add(array[i]); }
+                }
+            }
+        }
     }
 
     // Merge of the mergesort

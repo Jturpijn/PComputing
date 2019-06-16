@@ -1,19 +1,17 @@
 package G2_PCM;
 
 import java.sql.SQLOutput;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class TL_MergeSort {
 
     private static int[] array;
-    static HashMap<String, List<Integer>> subarrays = new HashMap<String, List<Integer>>();
+    static ArrayList<List<Integer>> allLists = new ArrayList<>();
     static int CORES;
     static int MAX;
+    static int counter=0;
+    static boolean donesorting = false;
     
     public static void main(int provCores, int highestValue, int[] anArray) throws InterruptedException{
         // unsorted array 
@@ -23,27 +21,18 @@ public class TL_MergeSort {
 
         // create subarrays
         for(int subs=0;subs<CORES;subs++) {
-            subarrays.put("todo"+subs, new LinkedList<Integer>());
+            allLists.add(subs, new ArrayList<>());
         }
 
-        for(int i =0; i < array.length; i++ ) {
-            if(i > MAX/2) {
-                subarrays.get("todo0").add(array[i]);
-            } else {
-                subarrays.get("todo1").add(array[i]);
-            }
-        }
+        Utils.splitIntoCores(MAX, CORES, array);
 
         for (int j=0; j<CORES; j++) {
-            new mergeThread().run();
+            new mergeThread(j).run();
         }
-        
-        // Iterator it = subarrays.entrySet().iterator();
-        // while (it.hasNext()) {
-        //     Map.Entry pair = (Map.Entry)it.next();
-        //     System.out.println(pair.getKey() + " = " + pair.getValue());
-        //     it.remove(); // avoids a ConcurrentModificationException
-        // }
-        
+
+//        for (List<Integer> list : allLists) {
+//            System.out.print("list number : " + allLists.indexOf(list) + "  ");
+//            Utils.print(list.stream().mapToInt(Integer::intValue).toArray());
+//        }
     }
 }

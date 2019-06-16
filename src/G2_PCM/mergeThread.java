@@ -1,41 +1,31 @@
 package G2_PCM;
 
 import java.util.*;
-import java.util.regex.*;
 
 public class mergeThread implements Runnable {
-    private int[] anArray;
-    
-    static HashMap<String, List<Integer>> subarrays = TL_MergeSort.subarrays;
+    private int listIndex;
+    private List<Integer> list;
+    private int[] arr;
 
+    static ArrayList<List<Integer>> allLists = TL_MergeSort.allLists;
+    public mergeThread(int index) {
+        listIndex = index;
+        new Thread(this).start();
+    }
     public void run() {
-        Pattern p = Pattern.compile("todo[0-9]");
-        Matcher m; 
-        Boolean grabbed = false; 
+        list = allLists.get(listIndex);
+        arr = list.stream().mapToInt(Integer::intValue).toArray();
+        MergeSort.mergesort(arr);
 
-        Iterator it = subarrays.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            m = p.matcher(pair.getKey().toString());
-            if(m.matches()) {
-                grabbed = true; 
-                System.out.println("I'm a thread and I grabbed " + pair.getKey());
 
-                anArray = subarrays.get(pair.getKey()).stream().mapToInt(Integer::intValue).toArray();
+        List<Integer> temp = new ArrayList<>();
 
-                MergeSort.mergesort(anArray);
-                pair.setValue(anArray);
-
-                // print function
-//                for(Integer i : anArray) {
-//                    System.out.print(i + " ");
-//                }
-            }
-            it.remove(); // avoids a ConcurrentModificationException
+        for(int i = 0; i<arr.length;i++) {
+            temp.add(arr[i]);
         }
 
-        if(grabbed = false) {
-            System.out.println("There are no more arrays to sort.");
-        }
+
+        allLists.set(listIndex, temp);
+        TL_MergeSort.counter++;
     }
 }
