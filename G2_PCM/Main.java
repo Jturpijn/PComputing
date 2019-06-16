@@ -1,26 +1,29 @@
 package G2_PCM;
 
-
+import static G2_PCM.TL_MergeSort.main;
 import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-     static final int SIZE = 75;
-     static final int MAX = 75;
-     static final int CORES = 2;
-    static int[] array = random(SIZE, MAX);
+    private static final int SIZE = 20000000;
+    private static final int MAX = 128;
+    private static final int CORES = 8;
+    private static int[] array = random(SIZE, MAX);
 
     public static void main(String[] args) throws InterruptedException{
         // sequential implementation
-        benchSequential();
+        //benchSequential();
 
         // threads and locks implementation
-       // benchTLMerge();
+        //benchTLMerge();
+
+        // fork join pool implementation
+        benchFJMerge();
     }
 
-    public static void benchSequential() {
+    private static void benchSequential() {
         array=random(SIZE, MAX);
         System.out.println(" "); // improve output readability
         long start = System.currentTimeMillis();
@@ -33,18 +36,33 @@ public class Main {
         System.out.println("\t Total time in milliseconds: " + (end - start));
     }
 
-    public static void benchTLMerge() throws InterruptedException{
+    private static void benchTLMerge() throws InterruptedException{
         array=random(SIZE, MAX);
         System.out.println(" "); // improve output readability
 
         // parallel implementation 4 core
         long TL2start = System.currentTimeMillis();
 
-        TL_MergeSort.main(CORES, MAX, array);
+        TL_MergeSort.main(MAX, array);
 
         long TL2end = System.currentTimeMillis();
         System.out.println("Type: Threads & Locks MergeSort");
         System.out.println("\t Amount of elements: " + SIZE);
         System.out.println("\t Total time in milliseconds: " + (TL2end - TL2start));
+    }
+
+    private static void benchFJMerge() throws InterruptedException{
+        array=random(SIZE, MAX);
+        System.out.println(" "); // improve output readability
+
+        // parallel implementation 4 core
+        long FJ2start = System.currentTimeMillis();
+
+        FJ_MergeSort.main(MAX,array);
+
+        long FJ2end = System.currentTimeMillis();
+        System.out.println("Type: Fork Join MergeSort");
+        System.out.println("\t Amount of elements: " + SIZE);
+        System.out.println("\t Total time in milliseconds: " + (FJ2end - FJ2start));
     }
 }
