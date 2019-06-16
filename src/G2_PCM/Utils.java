@@ -3,8 +3,8 @@ package G2_PCM;
 import java.util.List;
 import java.util.Random;
 
-import static G2_PCM.TL_MergeSort.*;
 import static G2_PCM.TL_MergeSort.splitLists;
+
 
 public interface Utils {
     // create a random number with a maximum of n.
@@ -43,7 +43,7 @@ public interface Utils {
     }
 
     static void split(List<Integer> tempLow, List<Integer> tempHigh, int head, int pivot) {
-        for(int i=0;i<splitLists.get(head).size();i++) {
+        for(int i = 0; i< splitLists.get(head).size(); i++) {
             int number = splitLists.get(head).get(i);
             if (number < pivot) {
                 tempLow.add(number);

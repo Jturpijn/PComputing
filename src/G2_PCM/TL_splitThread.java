@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static G2_PCM.TL_MergeSort.*;
-import static G2_PCM.TL_MergeSort.array;
+import static G2_PCM.TL_MergeSort.splitLists;
 import static G2_PCM.Utils.split;
-import static G2_PCM.Utils.print;
+
 
 public class TL_splitThread implements Runnable {
     List<Integer> tempLow = new ArrayList<>();

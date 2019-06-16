@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static G2_PCM.Utils.print;
+
 import static java.lang.Thread.sleep;
 
 public class TL_MergeSort {

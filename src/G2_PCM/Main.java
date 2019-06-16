@@ -1,14 +1,11 @@
 package G2_PCM;
 
-import static G2_PCM.TL_MergeSort.main;
 import static G2_PCM.MergeSort.mergesort;
-import static G2_PCM.Utils.*;
-import java.util.ArrayList;
-import java.util.List;
+import static G2_PCM.Utils.random;
 
 public class Main {
-    private static final int SIZE = 20000000;
-    private static final int MAX = 128;
+     static final int SIZE = 20000000;
+     static final int MAX = 128;
     private static final int CORES = 8;
     private static int[] array = random(SIZE, MAX);
 
@@ -24,7 +21,7 @@ public class Main {
     }
 
     private static void benchSequential() {
-        array=random(SIZE, MAX);
+        array= random(SIZE, MAX);
         System.out.println(" "); // improve output readability
         long start = System.currentTimeMillis();
 
@@ -37,7 +34,7 @@ public class Main {
     }
 
     private static void benchTLMerge() throws InterruptedException{
-        array=random(SIZE, MAX);
+        array= random(SIZE, MAX);
         System.out.println(" "); // improve output readability
 
         // parallel implementation 4 core
@@ -52,7 +49,7 @@ public class Main {
     }
 
     private static void benchFJMerge() throws InterruptedException{
-        array=random(SIZE, MAX);
+        array= random(SIZE, MAX);
         System.out.println(" "); // improve output readability
 
         // parallel implementation 4 core

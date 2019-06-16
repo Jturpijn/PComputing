@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import static G2_PCM.MergeSort.mergesort;
 
+
 public class SortStringFromQueue {
     // either connect to the remote ActiveMQ running on the PI, or on the localhost
     private static String url = "failover:(tcp://localhost:61616,localhost:8161)";

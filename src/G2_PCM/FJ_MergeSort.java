@@ -1,9 +1,9 @@
 package G2_PCM;
 
-import G2_PCM.Utils.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static G2_PCM.MergeSort.mergesort;
 
 public class FJ_MergeSort {
 
@@ -47,7 +47,7 @@ public class FJ_MergeSort {
         temp.addAll(left);
         temp.addAll(right);
         int[] test = temp.stream().mapToInt(Integer::intValue).toArray();
-        MergeSort.mergesort(test);
+        mergesort(test);
         return test;
 
     }

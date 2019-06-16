@@ -4,9 +4,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
-import java.util.Arrays;
-
 import static G2_PCM.Utils.random;
+
 
 public class Producer {
         // either connect to the remote ActiveMQ running on the PI, or on the localhost

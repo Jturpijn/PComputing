@@ -1,10 +1,9 @@
 package G2_PCM;
 
-import G2_PCM.MergeSort.*;
-import G2_PCM.Utils.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static G2_PCM.MergeSort.mergesort;
 
 public class FJ_MergeThread extends Thread {
 
@@ -20,7 +19,7 @@ public class FJ_MergeThread extends Thread {
     @Override
     public void run() {
         System.out.println("started thread with pivot : " + pivot + " and listsize : " + list.size());
-        MergeSort.mergesort(list.stream().mapToInt(Integer::intValue).toArray());
+        mergesort(list.stream().mapToInt(Integer::intValue).toArray());
 
         if(list.size() > 8 && pivot > 0) {
 //            for (Integer element : list) {
@@ -74,6 +73,6 @@ public class FJ_MergeThread extends Thread {
         temp.addAll(left);
         temp.addAll(right);
         int[] test = temp.stream().mapToInt(Integer::intValue).toArray();
-        MergeSort.mergesort(test);
+        mergesort(test);
     }
 }
