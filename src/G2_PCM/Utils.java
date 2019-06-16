@@ -12,7 +12,7 @@ public interface Utils {
         final int[] a = new int[n];
 
         for (int i = 0; i < n; i++) {
-            a[i] = new Random().nextInt((m -0) + 1);
+            a[i] = new Random().nextInt(m + 1);
         }
 
         return a;

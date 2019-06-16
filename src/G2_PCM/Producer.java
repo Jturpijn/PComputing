@@ -31,7 +31,7 @@ public class Producer {
 
             }
             String text = builder.toString();
-            System.out.println(text);
+         //   System.out.println(text);
 
         TextMessage message = session.createTextMessage(text);
         producer.send(message);

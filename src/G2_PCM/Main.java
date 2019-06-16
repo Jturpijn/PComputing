@@ -4,7 +4,7 @@ import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.random;
 
 public class Main {
-     static final int SIZE = 20000000;
+     static final int SIZE = 2000000;
      static final int MAX = 128;
     private static final int CORES = 8;
     private static int[] array = random(SIZE, MAX);
