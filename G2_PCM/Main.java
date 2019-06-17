@@ -5,9 +5,9 @@ import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.*;
 
 public class Main {
-    private static final int SIZE = 20000000;
-    private static final int MAX = 128;
-    private static final int CORES = 8;
+    private static final int SIZE = 20_000_000;
+    private static final int MAX = 100;
+    private static final int CORES = 3;
     private static int[] array = random(SIZE, MAX);
 
     public static void main(String[] args) throws InterruptedException{

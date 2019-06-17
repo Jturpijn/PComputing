@@ -1,79 +1,72 @@
 package G2_PCM;
 
-import G2_PCM.MergeSort.*;
-import G2_PCM.Utils.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.rmi.CORBA.Util;
 
 public class FJ_MergeThread extends Thread {
 
-    private List<Integer> list = new ArrayList<>();
-    private List<Integer> left = new ArrayList<>();
-    private List<Integer> right = new ArrayList<>();
+    private int[] list;
+    private int countLeft = 0;
+    private int countRight = 0;
     private int pivot;
 
-    public FJ_MergeThread(List<Integer> Head, int popivot) {
+    public FJ_MergeThread(int[] Head, int popivot) {
         list = Head; pivot = popivot;
     }
 
     @Override
     public void run() {
-        System.out.println("started thread with pivot : " + pivot + " and listsize : " + list.size());
-        MergeSort.mergesort(list.stream().mapToInt(Integer::intValue).toArray());
-
-        if(list.size() > 8 && pivot > 0) {
-//            for (Integer element : list) {
-//                if(element > pivot) {
-//                    left.add(element);
-//                } else { right.add(element); }
-//            }
-
-            for(int i =0; i < list.size(); i++) {
-                int element = list.get(i);
-                if(element > pivot) {
-                    left.add(element);
-                } else { right.add(element); }
+        int[] left = new int[list.length];
+        int[] right = new int[list.length];
+            if (pivot >= 8) {
+                for (int i = 0; i < list.length; i++) {
+                        if (list[i] >= (pivot / 2)) {
+                            right[countRight] = list[i];
+                            countRight++;
+                        } else {
+                            left[countLeft] = list[i];
+                            countLeft++;
+                        }
+                }
             }
 
-            // create next threads
-            if(left.size() > 8 && right.size() > 8) {
-                Thread leftSort = new FJ_MergeThread(left, pivot / 2);
+            int[] newleft = new int[countLeft];
+            System.arraycopy(left, 0, newleft, 0, countLeft);
+            int[] newright= new int[countRight];
+            System.arraycopy(right, 0, newright, 0, countRight);
 
-                Thread rightSort = new FJ_MergeThread(right, pivot - (pivot / 2));
+
+            // create next threads
+            if(pivot >= 8) {
+                Thread leftSort = new FJ_MergeThread(newleft, pivot / 8);
+                Thread rightSort = new FJ_MergeThread(newright, (pivot - (pivot / 8)));
+
                 //start both threads
-                leftSort.start(); rightSort.start();
+                leftSort.start();
+                rightSort.start();
 
                 // try to join
                 try {
                     leftSort.join();
-                } catch(InterruptedException ex) {
-                    System.out.println("Leftjoin failed.");
-                    System.out.println(ex.getMessage());
-                }
+                } catch(InterruptedException ex) { }
 
                 try {
                     rightSort.join();
-                } catch(InterruptedException ex) {
-                    System.out.println("Rightjoin failed.");
-                    System.out.println(ex.getMessage());
-                }
+                } catch(InterruptedException ex) { }
+            } else { MergeSort.mergesort(list); }
+            if(countLeft > 0 || countRight > 0) {
+                merge(newleft, newright);
             }
-
-            merge(left, right);
-
-        } else {
-            if(list.size()>0){
-                merge(left, right);
-            }
-        }
     }
 
-    public void merge(List<Integer> left, List<Integer> right) {
-        List<Integer> temp = new ArrayList<>();
-        temp.addAll(left);
-        temp.addAll(right);
-        int[] test = temp.stream().mapToInt(Integer::intValue).toArray();
-        MergeSort.mergesort(test);
+    public void merge(int[] left, int[] right) {
+        int[] output = new int[list.length];
+        System.arraycopy(output, 0, left, 0, countLeft);
+        System.arraycopy(output, 0, right, countLeft, countRight);
+
+        MergeSort.mergesort(output);
+        if(output.length == FJ_MergeSort.array.length) {
+            FJ_MergeSort.array = output;
+        }
     }
 }
