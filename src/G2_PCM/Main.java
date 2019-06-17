@@ -1,23 +1,25 @@
 package G2_PCM;
 
+import java.util.Arrays;
+
 import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.random;
 
 public class Main {
-     static final int SIZE = 2000000;
-     static final int MAX = 128;
+     static final int SIZE = 100;
+     static final int MAX = 100;
     private static final int CORES = 8;
     private static int[] array = random(SIZE, MAX);
 
     public static void main(String[] args) throws InterruptedException{
         // sequential implementation
-        //benchSequential();
+        benchSequential();
 
         // threads and locks implementation
         //benchTLMerge();
 
         // fork join pool implementation
-        benchFJMerge();
+       // benchFJMerge();
     }
 
     private static void benchSequential() {
