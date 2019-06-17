@@ -6,7 +6,7 @@ import javax.jms.*;
 
 public class Messagebroker {
 
-    public final static String serverUrl = "tcp://localhost:61616";
+    public final static String serverUrl = "tcp://192.168.1.140:61616";
     public final static String incomingQueue = "incomingQueue";
     public final static String outgoingQueue = "outgoingQueue";
 
@@ -16,6 +16,8 @@ public class Messagebroker {
     public void connect()
     {
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(serverUrl);
+        ((ActiveMQConnectionFactory) connectionFactory).setTrustAllPackages(true);
+
         try
         {
             Connection con = connectionFactory.createConnection();
@@ -52,7 +54,7 @@ public class Messagebroker {
             System.out.println("Failed to sent message: '" + e.getMessage() + "'");
         }
 
-        System.out.println("Sent message: '" + message + "'");
+        System.out.println("Sent message: '" + message.getMessageId() + "'");
     }
 
 

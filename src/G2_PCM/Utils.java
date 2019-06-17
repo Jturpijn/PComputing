@@ -2,7 +2,9 @@ package G2_PCM;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
+import static G2_PCM.Main.SIZE;
 import static G2_PCM.TL_MergeSort.splitLists;
 
 
@@ -50,6 +52,21 @@ public interface Utils {
             } else {
                 tempHigh.add(number);
             }
+        }
+    }
+    // Implementing Fisher–Yates shuffle
+    static void shuffleArray(int[] ar) {
+        for(int o = 0; o < SIZE; o++){
+            ar[o] = o;
+        }
+        Random rnd = ThreadLocalRandom.current();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            int a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
         }
     }
 

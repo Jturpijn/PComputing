@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class OwnMessage implements Serializable {
 
-    int messageId;
+    String messageId;
     int[] array;
     int part;
     int totalparts;
@@ -19,11 +19,11 @@ public class OwnMessage implements Serializable {
         this.array = array;
     }
 
-    public int getMessageId() {
+    public String getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(int messageId) {
+    public void setMessageId(String messageId) {
         this.messageId = messageId;
     }
 

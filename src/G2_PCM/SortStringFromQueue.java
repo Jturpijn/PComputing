@@ -30,13 +30,12 @@ public class SortStringFromQueue implements MessageListener {
 
             messagebroker.sendSortMessageOnQueue(
                     messagebroker.getActiveSession(),
-                    Messagebroker.outgoingQueue,
+                    Messagebroker.incomingQueue,
                     ownMessage
             );
         }
 
         public OwnMessage sortMessage(Message message) {
-            int[] integers = null; // to hold the converted and sorted numbers
 
             ObjectMessage objectMessage;
             OwnMessage ownMessage = new OwnMessage();
@@ -60,7 +59,7 @@ public class SortStringFromQueue implements MessageListener {
         public static void main(String[] args) throws JMSException {
             messagebroker = new Messagebroker();
             messagebroker.connect();
-            destination = messagebroker.getQueue(Messagebroker.incomingQueue);
+            destination = messagebroker.getQueue(Messagebroker.outgoingQueue);
             consumer = messagebroker.getActiveSession().createConsumer(destination);
             consumer.setMessageListener(new SortStringFromQueue("name"));
             messagebroker.getActiveCon().start();
