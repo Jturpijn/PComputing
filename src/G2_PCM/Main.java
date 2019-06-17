@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Main {
     private static final int SIZE = 1000000;
-    private static final int MAX = 100;
-    private static final int CORES = 4;
+    private static final int MAX = 99;
+    private static final int CORES = 3;
     static int[] array = random(SIZE, MAX);
 
     public static void main(String[] args) throws InterruptedException{

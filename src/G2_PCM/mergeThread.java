@@ -3,29 +3,29 @@ package G2_PCM;
 import java.util.*;
 
 public class mergeThread implements Runnable {
-    private int listIndex;
-    private List<Integer> list;
+    private int max;
+    private int counted;
     private int[] arr;
+    private int[] output = new int[counted];
+    private List<Integer> list;
 
     static ArrayList<List<Integer>> allLists = TL_MergeSort.allLists;
-    public mergeThread(int index) {
-        listIndex = index;
+    public mergeThread(int index, int[] bucket, int counter, int[] anArray) {
+        max = bucket[0];
+        counted = counter;
+        arr = anArray;
         new Thread(this).start();
     }
     public void run() {
-        list = allLists.get(listIndex);
-        arr = list.stream().mapToInt(Integer::intValue).toArray();
-        MergeSort.mergesort(arr);
+        int[] tobesorted = new int[counted];
+        int count=0;
 
+        for(int i = 0; i<counted;i++) {
+            if(count >= counted) { break; }
+            for(int j =0; j<arr.length; j++) {
 
-        List<Integer> temp = new ArrayList<>();
-
-        for(int i = 0; i<arr.length;i++) {
-            temp.add(arr[i]);
+            }
         }
 
-
-        allLists.set(listIndex, temp);
-        TL_MergeSort.counter++;
     }
 }

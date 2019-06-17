@@ -10,8 +10,7 @@ public class TL_MergeSort {
     static ArrayList<List<Integer>> allLists = new ArrayList<>();
     static int CORES;
     static int MAX;
-    static int counter=0;
-    static boolean donesorting = false;
+    static int[][] blueprint= new int[CORES][];
     
     public static void main(int provCores, int highestValue, int[] anArray) throws InterruptedException{
         // unsorted array 
@@ -24,10 +23,12 @@ public class TL_MergeSort {
             allLists.add(subs, new ArrayList<>());
         }
 
-        Utils.splitIntoCores(MAX, CORES, array);
+        blueprint = Utils.splitIntoCores(MAX, CORES, array);
 
-        for (int j=0; j<CORES; j++) {
-            new mergeThread(j).run();
+        for (int i=0; i<CORES; i++) {
+            for (int j=0; j<CORES; j++) {
+                new mergeThread(j, blueprint[i], blueprint[i][j], array).run();
+            }
         }
 
 //        for (List<Integer> list : allLists) {

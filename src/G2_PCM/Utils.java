@@ -16,36 +16,35 @@ public class Utils {
     }
 
     // Split array into buckets
-    static void splitIntoCores(int max, int cores, int[] array) {
-        List<List<Integer>> allLists = TL_MergeSort.allLists;
+    static int[][] splitIntoCores(int max, int cores, int[] array) {
+        int [] countAmount = new int[cores];
+        int[] blueprint = new int[cores];
+        //create the buckets
+        int right = (int) Math.ceil(max / cores);
+        for(int j = 0; j < cores; j++) {
+                blueprint[j] = right;
+                right += (int) Math.ceil(max / cores);
+        }
 
-        if(cores == 2) {
-            for(int i =0; i < array.length; i++ ) {
-                if(array[i] < max/2) {
-                    allLists.get(0).add(array[i]);
-                } else { allLists.get(1).add(array[i]); }
-            }
-        } else if (cores == 3 ) {
-            for(int i =0; i < array.length; i++ ) {
-                if(array[i] < max/2) {
-                    if(array[i] < max/4) {
-                        allLists.get(0).add(array[i]);
-                    } else { allLists.get(1).add(array[i]); }
-                } else { allLists.get(2).add(array[i]); }
-            }
-        } else if (cores == 4) {
-            for(int i =0; i < array.length; i++ ) {
-                if(array[i] < max/2) {
-                    if(array[i] < max/4) {
-                        allLists.get(0).add(array[i]);
-                    } else { allLists.get(1).add(array[i]); }
+        //count per bucket
+        for(int i =0; i< array.length;i++) {
+            int left = -1;
+            for(int j = 0; j < cores; j++) {
+//                System.out.println("the start  " + blueprint[j]);
+                if(array[i] >= left && array[i] <= blueprint[j]) {
+                    countAmount[j]++;
+                    break;
                 } else {
-                    if(array[i] < (max - (max/4))) {
-                        allLists.get(2).add(array[i]);
-                    } else { allLists.get(3).add(array[i]); }
+                    left = blueprint[j];
                 }
             }
         }
+        // prepare output
+        int[][] output = new int[cores][];
+        for(int i= 0; i<cores; i++) {
+            output[i][i] = output[blueprint[i]][countAmount[i]];
+        }
+        return output;
     }
 
     // Merge of the mergesort
