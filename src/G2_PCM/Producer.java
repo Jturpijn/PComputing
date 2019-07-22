@@ -16,11 +16,7 @@ public class Producer {
     private static Messagebroker messagebroker;
     private static Destination destination;
 
-    private static int[] locArray;
- // either connect to the remote Messagebroker running on the PI, or on the localhost
-        private static String url = "failover:(tcp://localhost:61616,localhost:8161)";
-        private static String subject = "incomingQueue"; // Queue Name
-        private static int[] array;
+
         static int[] ownArray = new int[SIZE];
 
     public static void sendMessages() {
@@ -65,7 +61,7 @@ public class Producer {
                 ownMessage.setMessageId("hoog");
             }
 
-            ownMessage.setTotalparts(2);
+            ownMessage.setTotalparts(4);
             ownMessage.setPart(i+1);
             messagebroker.sendSortMessageOnQueue(
                     messagebroker.getActiveSession(),

@@ -1,7 +1,6 @@
 package G2_PCM;
 
 import javax.jms.*;
-import java.util.ArrayList;
 
 import static G2_PCM.Main.SIZE;
 
@@ -10,9 +9,10 @@ public class Consumer implements MessageListener {
     private static Messagebroker messagebroker;
     private static Destination destination;
     private static MessageConsumer messageConsumer;
-    int i =0;
+    int messageCount =0;
 
-    ArrayList<OwnMessage> messages = new ArrayList<>();
+   // ArrayList<OwnMessage> messages = new ArrayList<>();
+    OwnMessage[] messages = new OwnMessage[4];
 
 
     // private Map<String, LinkedList<OwnMessage>> jobs = new HashMap<>();
@@ -38,12 +38,12 @@ public class Consumer implements MessageListener {
 
         OwnMessage ownMessage = messageToOwnMessage(message);
         storeMessage(ownMessage);
-        i++;
+        messageCount++;
 
-        if (i == 4){
+        if (messageCount == 4){
            int[] array =  mergeMessages();
             System.out.println(Producer.StringBuilder(array));
-            i = 0;
+            messageCount = 0;
         }
 
     }
@@ -68,13 +68,13 @@ public class Consumer implements MessageListener {
     void storeMessage(OwnMessage message) {
 
         if(message.getMessageId().equals("laag")){
-            messages.set(0, message);
+            messages[0] = message;
         } else if (message.getMessageId().equals("middellaag")){
-            messages.set(1, message);
+            messages[1] = message;
         } else if (message.getMessageId().equals("middelhoog")){
-            messages.set(2, message);
-        } else{
-            messages.set(3, message);
+            messages[2] = message;
+        } else if (message.getMessageId().equals("hoog")){
+            messages[3] = message;
         }
 
     }
@@ -89,7 +89,6 @@ public class Consumer implements MessageListener {
                 p++;
             }
         }
-        messages.clear();
         return array;
     }
 

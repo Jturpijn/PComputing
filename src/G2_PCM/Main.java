@@ -5,7 +5,7 @@ import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.*;
 
 public class Main {
-    private static final int SIZE = 20_000_000;
+    static final int SIZE = 200;
     private static final int MAX = 100;
     private static final int CORES = 3;
     private static int[] array = random(SIZE, MAX);
@@ -18,7 +18,7 @@ public class Main {
         //benchTLMerge();
 
         // fork join pool implementation
-        benchFJMerge();
+      //  benchFJMerge();
     }
 
     private static void benchSequential() {
