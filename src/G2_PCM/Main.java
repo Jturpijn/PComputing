@@ -5,7 +5,16 @@ import static G2_PCM.MergeSort.mergesort;
 import static G2_PCM.Utils.*;
 
 public class Main {
-    static final int SIZE = 200;
+   // static final int SIZE = 100000;
+  //  static final int SIZE = 250000;
+  // static final int SIZE = 500000;
+    static final int SIZE = 750000;
+   // static final int SIZE = 1000000;
+   // static final int SIZE = 2000000;
+  //  static final int SIZE = 4000000;
+  // static final int SIZE = 10000000;
+   // static final int SIZE = 15000000;
+  //  static final int SIZE = 20000000;
     private static final int MAX = 100;
     private static final int CORES = 3;
     private static int[] array = random(SIZE, MAX);

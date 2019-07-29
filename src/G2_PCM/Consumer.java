@@ -42,8 +42,13 @@ public class Consumer implements MessageListener {
 
         if (messageCount == 4){
            int[] array =  mergeMessages();
-            System.out.println(Producer.StringBuilder(array));
+            System.out.println("eerste cijfer: " + array[0] + " \n"
+                    + "middelste cijfer: " + array[SIZE/2] + " \n"
+                    + "laatste cijfer: " + array[SIZE -1]);
+        //    System.out.println(Producer.StringBuilder(array));
             messageCount = 0;
+            long eind = System.nanoTime();
+            System.out.println("eindtijd = " + eind);
         }
 
     }
@@ -89,6 +94,7 @@ public class Consumer implements MessageListener {
                 p++;
             }
         }
+        messages = new OwnMessage[4];
         return array;
     }
 

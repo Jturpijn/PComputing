@@ -15,12 +15,15 @@ public class Producer {
 
     private static Messagebroker messagebroker;
     private static Destination destination;
-
+public static long end;
 
         static int[] ownArray = new int[SIZE];
 
     public static void sendMessages() {
         //array = random(SIZE, MAX);
+        System.out.println(SIZE);
+        long start = System.nanoTime();
+        System.out.println(start);
         shuffleArray(ownArray);
         int[] laag = new int[SIZE/4];
         int[] middellaag = new int[SIZE/4];
@@ -59,6 +62,7 @@ public class Producer {
             } else {
                 ownMessage.setArray(hoog);
                 ownMessage.setMessageId("hoog");
+                 end = System.nanoTime();
             }
 
             ownMessage.setTotalparts(4);
@@ -69,6 +73,9 @@ public class Producer {
                     ownMessage
             );
         }
+
+        long tijd = ((end - start) / 1000)/1000;
+        System.out.print("Took: " +tijd);
     }
 
         public static void main(String[] args) throws JMSException {

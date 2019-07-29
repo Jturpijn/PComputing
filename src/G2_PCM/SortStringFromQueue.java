@@ -11,6 +11,8 @@ public class SortStringFromQueue implements MessageListener {
         private static Destination destination;
         private static Session session;
         private static MessageConsumer consumer;
+        private int check = 0;
+        public static long start;
 
         public SortStringFromQueue(String consumerName) {
             ConsumerName = consumerName;
@@ -25,7 +27,7 @@ public class SortStringFromQueue implements MessageListener {
                 System.out.println("Error while acknowledging message");
                 e.printStackTrace();
             }
-
+                check++;
             OwnMessage ownMessage = this.sortMessage(message);
 
             messagebroker.sendSortMessageOnQueue(
@@ -33,6 +35,18 @@ public class SortStringFromQueue implements MessageListener {
                     Messagebroker.incomingQueue,
                     ownMessage
             );
+
+            if(check == 1){
+                start = System.nanoTime();
+            }
+
+            if(check == 2){
+                long end = System.nanoTime();
+                long tijd = ((end - start) / 1000)/1000;
+                System.out.print("Took: " + tijd);
+                check = 0;
+            }
+
         }
 
         public OwnMessage sortMessage(Message message) {

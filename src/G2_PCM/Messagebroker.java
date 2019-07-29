@@ -6,7 +6,7 @@ import javax.jms.*;
 
 public class Messagebroker {
 
-    public final static String serverUrl = "tcp://192.168.1.140:61616";
+    public final static String serverUrl = "tcp://192.168.1.126:61616";
     public final static String incomingQueue = "incomingQueue";
     public final static String outgoingQueue = "outgoingQueue";
 
